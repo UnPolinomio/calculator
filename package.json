@@ -1,0 +1,38 @@
+{
+  "name": "web-calculator",
+  "version": "1.0.0",
+  "description": "Web calculator using React and TypeScript",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "start": "webpack-dev-server --open --config dev.webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HectorFranc/calculator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HectorFranc/calculator/issues"
+  },
+  "homepage": "https://github.com/HectorFranc/calculator#readme",
+  "devDependencies": {
+    "@types/react": "^16.9.35",
+    "@types/react-dom": "^16.9.8",
+    "html-webpack-plugin": "^4.3.0",
+    "source-map-loader": "^1.0.0",
+    "ts-loader": "^7.0.5",
+    "typescript": "^3.9.3",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "aphrodite": "^2.4.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "string-hash": "^1.1.3"
+  }
+}
