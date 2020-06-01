@@ -1,15 +1,25 @@
 import React, { Component } from 'react'
 import { StyleSheet, css } from 'aphrodite';
-import { CalculatorSymbol } from './Calculator';
+import Calculator, { CalculatorSymbol } from './Calculator';
 
 interface CalculatorButtonProps {
-    symbol: CalculatorSymbol
+    symbol: CalculatorSymbol,
+    clickHandler: (event: React.MouseEvent<HTMLDivElement, MouseEvent>, calculatorSymbol: CalculatorSymbol) => void
 }
 
 export default class CalculatorButton extends Component<CalculatorButtonProps, {}> {
+    constructor(props: CalculatorButtonProps) {
+        super(props)
+        this.clickHandler = this.clickHandler.bind(this)
+    }
+
+    clickHandler(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+        this.props.clickHandler(event, this.props.symbol)
+    }
+
     render() {
         return (
-            <div className={css(styles.root)}>
+            <div className={css(styles.root)} onClick={this.clickHandler}>
                 {this.props.symbol}
             </div>
         )
