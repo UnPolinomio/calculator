@@ -14,7 +14,7 @@ export default class CalculatorScreen extends Component<CalculatorScreenProps, {
         <div
             className={css(styles.root)}>
             <span className={css(styles.expression)}>{this.props.expression ? this.props.expression : ''}</span>
-            <span>{this.props.value ? this.props.value.toString() : '0'}</span>
+            <span className={css(styles.value)}>{this.props.value ? this.props.value.toString() : '0'}</span>
         </div>
         )
     }
@@ -31,13 +31,19 @@ const styles = StyleSheet.create({
         backgroundColor: '#f3eec9',
         [MediaQueries.tablet]: {
             fontSize: '40px',
-        }
+        },
+    },
+    value: {
+        display: 'block',
+        overflowX: 'auto',
     },
     expression: {
         fontSize: '20px',
         display: 'block',
+        overflowX: 'auto',
         [MediaQueries.tablet]: {
             fontSize: '25px'
-        }
-    }
+        },
+        borderBottom: '1px dotted gray'
+    },
 })
