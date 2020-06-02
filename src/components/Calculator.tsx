@@ -29,8 +29,69 @@ export default class Calculator extends Component<CalculatorProps, CalculatorSta
             expression: ''
         }
 
+        this.handleKeyUp = this.handleKeyUp.bind(this)
         this.handleNumericalButtonClick = this.handleNumericalButtonClick.bind(this)
         this.handleSpecialButtonClick = this.handleSpecialButtonClick.bind(this)
+    }
+
+    componentDidMount() {
+        document.body.addEventListener('keyup', this.handleKeyUp)
+    }
+    componentWillUnmount() {
+        document.body.removeEventListener('keyup', this.handleKeyUp)
+    }
+
+    handleKeyUp(event: KeyboardEvent): void {
+        switch(event.key) {
+            case '+':
+                this.handleSpecialButtonClick(CalculatorSpecialSymbol.plus)
+                break;
+            case '-':
+                this.handleSpecialButtonClick(CalculatorSpecialSymbol.minus)
+                break;
+            case '*':
+                this.handleSpecialButtonClick(CalculatorSpecialSymbol.times)
+                break;
+            case '/':
+                this.handleSpecialButtonClick(CalculatorSpecialSymbol.divide)
+                break;
+            case 'Enter':
+            case '=':
+                this.handleSpecialButtonClick(CalculatorSpecialSymbol.result)
+                break;
+
+            case '0':
+                this.handleNumericalButtonClick(CalculatorNumericalSymbol.zero)
+                break;
+            case '1':
+                this.handleNumericalButtonClick(CalculatorNumericalSymbol.one)
+                break;
+            case '2':
+                this.handleNumericalButtonClick(CalculatorNumericalSymbol.two)
+                break;
+            case '3':
+                this.handleNumericalButtonClick(CalculatorNumericalSymbol.three)
+                break;
+            case '4':
+                this.handleNumericalButtonClick(CalculatorNumericalSymbol.four)
+                break;
+            case '5':
+                this.handleNumericalButtonClick(CalculatorNumericalSymbol.five)
+                break;
+            case '6':
+                this.handleNumericalButtonClick(CalculatorNumericalSymbol.six)
+                break;
+            case '7':
+                this.handleNumericalButtonClick(CalculatorNumericalSymbol.seven)
+                break;
+            case '8':
+                this.handleNumericalButtonClick(CalculatorNumericalSymbol.eight)
+                break;
+            case '9':
+                this.handleNumericalButtonClick(CalculatorNumericalSymbol.nine)
+                break;
+        }
+        console.log(event.key)
     }
 
     handleNumericalButtonClick(calculatorSymbol: CalculatorNumericalSymbol | CalculatorSpecialSymbol): void {
