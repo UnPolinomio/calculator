@@ -15,32 +15,34 @@ export default class CalculatorButton extends Component<CalculatorButtonProps, {
         this.clickHandler = this.clickHandler.bind(this)
     }
 
-    clickHandler(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    clickHandler(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         this.props.clickHandler(this.props.symbol)
     }
 
     render() {
         return (
-            <div className={css(styles.root)} onClick={this.clickHandler}>
+            <button className={css(styles.root)} onClick={this.clickHandler}>
                 {this.props.symbol}
-            </div>
+            </button>
         )
     }
 }
 
 const styles = StyleSheet.create({
     root: {
-        width: '60px',
-        height: '60px',
-        lineHeight: '60px',
-        border: '1px solid black',
-        textAlign: 'center',
-        verticalAlign: 'middle',
-        fontSize: '25px',
-        borderRadius: '5px',
-        marginRight: '10px',
-        marginBottom: '10px',
-        display: 'inline-block',
+        fontSize: '60px',
         cursor: 'pointer',
+        borderRadius: '5px',
+        border: '1px solid black',
+        width: '100%',
+        height: '100%',
+        textAlign: 'center',
+        lineHeight: '75px',
+        verticalAlign: 'middle',
+        outline: 'none',
+        backgroundColor: '#e3f8fd',
+        ':active': {
+            backgroundColor: '#97e69e',
+        }
     }
 })

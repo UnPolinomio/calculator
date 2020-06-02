@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { StyleSheet, css } from 'aphrodite';
 import CalculatorScreen from './CalculatorScreen';
 import CalculatorButton from './CalculatorButton';
+import { MediaQueries } from './types/MediaQueries';
 
 export enum CalculatorNumericalSymbol {
     zero, one, two, three, four, five, six, seven, eight, nine,
@@ -194,25 +195,30 @@ export default class Calculator extends Component<CalculatorProps, CalculatorSta
         return <div className={css(styles.root)}>
             <CalculatorScreen value={this.state.actualNumber} expression={this.state.expression} />
 
-            <div className={css(styles.numericButtons)}>
-                <CalculatorButton clickHandler={this.handleNumericalButtonClick} symbol={CalculatorNumericalSymbol.nine}/>
-                <CalculatorButton clickHandler={this.handleNumericalButtonClick} symbol={CalculatorNumericalSymbol.eight}/>
+            <div className={css(styles.buttons)}>
                 <CalculatorButton clickHandler={this.handleNumericalButtonClick} symbol={CalculatorNumericalSymbol.seven}/>
-                <CalculatorButton clickHandler={this.handleNumericalButtonClick} symbol={CalculatorNumericalSymbol.six}/>
-                <CalculatorButton clickHandler={this.handleNumericalButtonClick} symbol={CalculatorNumericalSymbol.five}/>
-                <CalculatorButton clickHandler={this.handleNumericalButtonClick} symbol={CalculatorNumericalSymbol.four}/>
-                <CalculatorButton clickHandler={this.handleNumericalButtonClick} symbol={CalculatorNumericalSymbol.three}/>
-                <CalculatorButton clickHandler={this.handleNumericalButtonClick} symbol={CalculatorNumericalSymbol.two}/>
-                <CalculatorButton clickHandler={this.handleNumericalButtonClick} symbol={CalculatorNumericalSymbol.one}/>
-                <CalculatorButton clickHandler={this.handleNumericalButtonClick} symbol={CalculatorNumericalSymbol.zero}/>
-
-                <CalculatorButton clickHandler={this.handleSpecialButtonClick} symbol={CalculatorSpecialSymbol.plus}/>
-                <CalculatorButton clickHandler={this.handleSpecialButtonClick} symbol={CalculatorSpecialSymbol.minus}/>
-                <CalculatorButton clickHandler={this.handleSpecialButtonClick} symbol={CalculatorSpecialSymbol.result}/>
-                <CalculatorButton clickHandler={this.handleSpecialButtonClick} symbol={CalculatorSpecialSymbol.times}/>
-                <CalculatorButton clickHandler={this.handleSpecialButtonClick} symbol={CalculatorSpecialSymbol.divide}/>
-                <CalculatorButton clickHandler={this.handleSpecialButtonClick} symbol={CalculatorSpecialSymbol.dot}/>
+                <CalculatorButton clickHandler={this.handleNumericalButtonClick} symbol={CalculatorNumericalSymbol.eight}/>
+                <CalculatorButton clickHandler={this.handleNumericalButtonClick} symbol={CalculatorNumericalSymbol.nine}/>
                 <CalculatorButton clickHandler={this.handleSpecialButtonClick} symbol={CalculatorSpecialSymbol.backspace}/>
+
+                <CalculatorButton clickHandler={this.handleNumericalButtonClick} symbol={CalculatorNumericalSymbol.four}/>
+                <CalculatorButton clickHandler={this.handleNumericalButtonClick} symbol={CalculatorNumericalSymbol.five}/>
+                <CalculatorButton clickHandler={this.handleNumericalButtonClick} symbol={CalculatorNumericalSymbol.six}/>
+                <CalculatorButton clickHandler={this.handleSpecialButtonClick} symbol={CalculatorSpecialSymbol.divide}/>
+
+                <CalculatorButton clickHandler={this.handleNumericalButtonClick} symbol={CalculatorNumericalSymbol.one}/>
+                <CalculatorButton clickHandler={this.handleNumericalButtonClick} symbol={CalculatorNumericalSymbol.two}/>
+                <CalculatorButton clickHandler={this.handleNumericalButtonClick} symbol={CalculatorNumericalSymbol.three}/>
+                <CalculatorButton clickHandler={this.handleSpecialButtonClick} symbol={CalculatorSpecialSymbol.minus}/>
+
+                <CalculatorButton clickHandler={this.handleNumericalButtonClick} symbol={CalculatorNumericalSymbol.zero}/>
+                <CalculatorButton clickHandler={this.handleSpecialButtonClick} symbol={CalculatorSpecialSymbol.dot}/>
+                <CalculatorButton clickHandler={this.handleSpecialButtonClick} symbol={CalculatorSpecialSymbol.times}/>
+                <CalculatorButton clickHandler={this.handleSpecialButtonClick} symbol={CalculatorSpecialSymbol.plus}/>
+
+                <div className={css(styles.resultButton)}>
+                    <CalculatorButton clickHandler={this.handleSpecialButtonClick} symbol={CalculatorSpecialSymbol.result}/>
+                </div>
             </div>
         </div>
     }
@@ -220,13 +226,34 @@ export default class Calculator extends Component<CalculatorProps, CalculatorSta
 
 const styles = StyleSheet.create({
     root: {
-        width: '50%',
+        width: '85%',
         margin: 'auto',
-        padding: '15px',
-        border: '2px solid gray',
+        padding: '23px',
+        border: '3px solid gray',
+        maxWidth: '6500px',
+        boxSizing: 'border-box',
+        [MediaQueries.tablet]: {
+            width: '60%'
+        },
+        [MediaQueries.laptop]: {
+            width: '50%',
+        },
     },
-    numericButtons: {
-        marginTop: '20px',
-        textAlign: 'center'
+    buttons: {
+        marginTop: '25px',
+        textAlign: 'center',
+        display: 'grid',
+        gridTemplate: 'repeat(5, 70px) / repeat(4, 75px)',
+        gap: '1px',
+        justifyContent: 'center',
+        [MediaQueries.tablet]: {
+            gridTemplate: 'repeat(5, 70px) / repeat(4, 75px)',
+            gap: '20px',
+        }
+    },
+    resultButton: {
+        width: '100%',
+        height: '100%',
+        gridColumn: '1 / -1'
     }
 })

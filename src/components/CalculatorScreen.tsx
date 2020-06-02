@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, css } from 'aphrodite'
+import { MediaQueries } from './types/MediaQueries';
 
 interface CalculatorScreenProps {
     value?: number,
@@ -25,11 +26,18 @@ const styles = StyleSheet.create({
         textAlign: 'end',
         padding: '12px',
         borderRadius: '7px',
-        fontSize: '25px',
+        fontSize: '30px',
         letterSpacing: '3px',
+        backgroundColor: '#f3eec9',
+        [MediaQueries.tablet]: {
+            fontSize: '40px',
+        }
     },
     expression: {
         fontSize: '20px',
         display: 'block',
+        [MediaQueries.tablet]: {
+            fontSize: '25px'
+        }
     }
 })
