@@ -226,7 +226,7 @@ export default class Calculator extends Component<CalculatorProps, CalculatorSta
 
 const styles = StyleSheet.create({
     root: {
-        width: '85%',
+        width: '95%',
         margin: 'auto',
         padding: '23px',
         border: '3px solid gray',
@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
         marginTop: '25px',
         textAlign: 'center',
         display: 'grid',
-        gridTemplate: 'repeat(5, 70px) / repeat(4, 75px)',
+        gridTemplate: 'repeat(5, 70px) / repeat(4, 65px)',
         gap: '1px',
         justifyContent: 'center',
         [MediaQueries.tablet]: {
