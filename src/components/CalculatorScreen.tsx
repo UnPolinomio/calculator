@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { StyleSheet, css } from 'aphrodite'
 
 interface CalculatorScreenProps {
-    value?: number
+    value?: number,
+    expression?: string,
 }
 
 
@@ -11,7 +12,8 @@ export default class CalculatorScreen extends Component<CalculatorScreenProps, {
         return (
         <div
             className={css(styles.root)}>
-            {this.props.value ? this.props.value.toString() : '0'}
+            <span className={css(styles.expression)}>{this.props.expression ? this.props.expression : ''}</span>
+            <span>{this.props.value ? this.props.value.toString() : '0'}</span>
         </div>
         )
     }
@@ -25,5 +27,9 @@ const styles = StyleSheet.create({
         borderRadius: '7px',
         fontSize: '25px',
         letterSpacing: '3px',
+    },
+    expression: {
+        fontSize: '20px',
+        display: 'block',
     }
 })
