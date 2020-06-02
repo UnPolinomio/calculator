@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { StyleSheet, css } from 'aphrodite';
-import Calculator, { CalculatorSymbol } from './Calculator';
+import { CalculatorNumericalSymbol, CalculatorSpecialSymbol } from './Calculator';
+
+let a = Object.assign({}, CalculatorSpecialSymbol, CalculatorNumericalSymbol)
 
 interface CalculatorButtonProps {
-    symbol: CalculatorSymbol,
-    clickHandler: (event: React.MouseEvent<HTMLDivElement, MouseEvent>, calculatorSymbol: CalculatorSymbol) => void
+    symbol: CalculatorNumericalSymbol | CalculatorSpecialSymbol
+    clickHandler: (calculatorSymbol: CalculatorNumericalSymbol | CalculatorSpecialSymbol) => void,
 }
 
 export default class CalculatorButton extends Component<CalculatorButtonProps, {}> {
@@ -14,7 +16,7 @@ export default class CalculatorButton extends Component<CalculatorButtonProps, {
     }
 
     clickHandler(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-        this.props.clickHandler(event, this.props.symbol)
+        this.props.clickHandler(this.props.symbol)
     }
 
     render() {
