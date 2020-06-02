@@ -12,12 +12,23 @@ export enum CalculatorSpecialSymbol {
     result='=',
     times='×',
     divide='÷',
+    dot='.',
+    backspace='←',
 }
 
 interface CalculatorProps {}
 interface CalculatorState {
     actualNumber: number,
     expression: string,
+}
+
+function getActualNumberFromExpressionString(expression: string, newSymbol?: CalculatorNumericalSymbol): number {
+    let actualNumberString = expression.split(' ').pop() || ''
+    if (newSymbol) {
+        actualNumberString += newSymbol.toString()
+    }
+    let actualNumber = parseFloat(actualNumberString)
+    return actualNumber
 }
 
 export default class Calculator extends Component<CalculatorProps, CalculatorState>{
@@ -43,6 +54,7 @@ export default class Calculator extends Component<CalculatorProps, CalculatorSta
 
     handleKeyUp(event: KeyboardEvent): void {
         switch(event.key) {
+            // Special
             case '+':
                 this.handleSpecialButtonClick(CalculatorSpecialSymbol.plus)
                 break;
@@ -59,7 +71,14 @@ export default class Calculator extends Component<CalculatorProps, CalculatorSta
             case '=':
                 this.handleSpecialButtonClick(CalculatorSpecialSymbol.result)
                 break;
+            case 'Backspace':
+                this.handleSpecialButtonClick(CalculatorSpecialSymbol.backspace)
+                break;
+            case '.':
+                this.handleSpecialButtonClick(CalculatorSpecialSymbol.dot)
+                break;
 
+            //  Numerical
             case '0':
                 this.handleNumericalButtonClick(CalculatorNumericalSymbol.zero)
                 break;
@@ -91,15 +110,13 @@ export default class Calculator extends Component<CalculatorProps, CalculatorSta
                 this.handleNumericalButtonClick(CalculatorNumericalSymbol.nine)
                 break;
         }
-        console.log(event.key)
     }
 
     handleNumericalButtonClick(calculatorSymbol: CalculatorNumericalSymbol | CalculatorSpecialSymbol): void {
         calculatorSymbol = calculatorSymbol as CalculatorNumericalSymbol
-        let expression = 
         this.setState({
             expression: this.state.expression.concat(`${calculatorSymbol}`),
-            actualNumber: parseFloat(this.state.actualNumber.toString().concat(calculatorSymbol.toString()))
+            actualNumber: getActualNumberFromExpressionString(this.state.expression, calculatorSymbol)
         })
     }
     handleSpecialButtonClick(calculatorSymbol: CalculatorNumericalSymbol | CalculatorSpecialSymbol): void {
@@ -129,10 +146,23 @@ export default class Calculator extends Component<CalculatorProps, CalculatorSta
                     actualNumber: 0,
                 })
                 break;
+            case CalculatorSpecialSymbol.backspace:
+                let expression =  this.state.expression
+                let newExpression = expression.substr(0, expression.length - 1)
+                this.setState({
+                    expression: newExpression,
+                    actualNumber: getActualNumberFromExpressionString(newExpression),
+                })
+                break;
+            case CalculatorSpecialSymbol.dot:
+                this.setState({
+                    expression: this.state.expression + '.',
+                })
+                break;
             case CalculatorSpecialSymbol.result:
                 let result;
                 try {
-                    result = eval(this.state.expression) || 0
+                    result = eval(this.state.expression)
                 } catch (error) {
                     this.launchError()
                     break;
@@ -142,7 +172,6 @@ export default class Calculator extends Component<CalculatorProps, CalculatorSta
                     this.launchError()
                     break;
                 }
-
 
                 this.setState({
                     expression: `${result}`,
@@ -163,7 +192,7 @@ export default class Calculator extends Component<CalculatorProps, CalculatorSta
     render() {
 
         return <div className={css(styles.root)}>
-            <CalculatorScreen value={this.state.actualNumber} />
+            <CalculatorScreen value={this.state.actualNumber} expression={this.state.expression} />
 
             <div className={css(styles.numericButtons)}>
                 <CalculatorButton clickHandler={this.handleNumericalButtonClick} symbol={CalculatorNumericalSymbol.nine}/>
@@ -182,6 +211,8 @@ export default class Calculator extends Component<CalculatorProps, CalculatorSta
                 <CalculatorButton clickHandler={this.handleSpecialButtonClick} symbol={CalculatorSpecialSymbol.result}/>
                 <CalculatorButton clickHandler={this.handleSpecialButtonClick} symbol={CalculatorSpecialSymbol.times}/>
                 <CalculatorButton clickHandler={this.handleSpecialButtonClick} symbol={CalculatorSpecialSymbol.divide}/>
+                <CalculatorButton clickHandler={this.handleSpecialButtonClick} symbol={CalculatorSpecialSymbol.dot}/>
+                <CalculatorButton clickHandler={this.handleSpecialButtonClick} symbol={CalculatorSpecialSymbol.backspace}/>
             </div>
         </div>
     }
