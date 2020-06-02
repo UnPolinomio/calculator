@@ -23,11 +23,8 @@ interface CalculatorState {
     expression: string,
 }
 
-function getActualNumberFromExpressionString(expression: string, newSymbol?: CalculatorNumericalSymbol): number {
+function getActualNumberFromExpressionString(expression: string): number {
     let actualNumberString = expression.split(' ').pop() || ''
-    if (newSymbol) {
-        actualNumberString += newSymbol.toString()
-    }
     let actualNumber = parseFloat(actualNumberString)
     return actualNumber
 }
@@ -115,9 +112,10 @@ export default class Calculator extends Component<CalculatorProps, CalculatorSta
 
     handleNumericalButtonClick(calculatorSymbol: CalculatorNumericalSymbol | CalculatorSpecialSymbol): void {
         calculatorSymbol = calculatorSymbol as CalculatorNumericalSymbol
+        let newExpression = this.state.expression.concat(`${calculatorSymbol}`)
         this.setState({
-            expression: this.state.expression.concat(`${calculatorSymbol}`),
-            actualNumber: getActualNumberFromExpressionString(this.state.expression, calculatorSymbol)
+            expression: newExpression,
+            actualNumber: getActualNumberFromExpressionString(newExpression)
         })
     }
     handleSpecialButtonClick(calculatorSymbol: CalculatorNumericalSymbol | CalculatorSpecialSymbol): void {
